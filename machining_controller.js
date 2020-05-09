@@ -1,5 +1,6 @@
-const machining_model = require('./machining_model');
+// POSTMAN komennot löytyy app.js:n alhaalta
 
+const machining_model = require('./machining_model');
 
 // HELPERS
 const machining_data = (req) => {
