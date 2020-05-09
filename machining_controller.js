@@ -44,9 +44,23 @@ const api_get_machinings = (req, res, next) => {
         console.log(err);
     });
 };
+// FIND ONE
+const api_get_machining = (req, res, next) => {
+    console.log('api_get_machining');
+    let id = req.params.id;
+ 
+    machining_model.findById(id)
+        .lean()
+        .then(machinings => {
+            res.send(JSON.stringify(machinings));
+        }).catch(err => {
+            res.status(500);
+            res.send(err.errmsg);
+            console.log(err);
+        });
+};
 
-// UPDATE
-// PUT /api/machining/5eb648dd85b08b096c3285eb
+// PUT 
 const api_put_machining = (req, res, next) => {
     console.log('api_put_machining');
     let id = req.params.id;
@@ -64,34 +78,21 @@ const api_put_machining = (req, res, next) => {
 
 };
 
-
 // DELETE
-// DELETE /api/machining/5eb648dd85b08b096c3285eb
 const api_delete_machining = (req, res, next) => {
     let id = req.params.id;
-    machining_model.findByIdAndDelete({
-        name: id
-    }).then(() => {
+    machining_model.findByIdAndRemove(id).then(() =>{
         res.send();
     }).catch(err => {
         res.status(500);
         res.send(err.errmsg);
         console.log(err);
     });
-
-    
-//    material_model.findByIdAndRemove(id).then(() =>{
-//        res.send();
-//    }).catch(err => {
-//        res.status(500);
-//        res.send(err.errmsg);
-//        console.log(err);
-//    });
 };
-
 
 // EXPORTS
 module.exports.api_get_machinings = api_get_machinings;
 module.exports.api_post_machining = api_post_machining;
 module.exports.api_delete_machining = api_delete_machining;
 module.exports.api_put_machining = api_put_machining;
+module.exports.api_get_machining = api_get_machining;
